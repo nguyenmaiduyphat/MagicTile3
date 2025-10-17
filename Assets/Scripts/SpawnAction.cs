@@ -12,6 +12,7 @@ public class SpawnAction : MonoBehaviour
 
     [Header("Music Sync")]
     [SerializeField] AudioSource music;
+    public AudioSource tap;
     [SerializeField] float bpm = 120f; // song tempo
     [SerializeField] float startDelay = 1f; // wait before song starts
     [SerializeField] float beatLineY = -3.5f; // Y position of tap line
@@ -22,6 +23,7 @@ public class SpawnAction : MonoBehaviour
     private bool started = false;
     void Start()
     {
+        Application.runInBackground = true;
         secondsPerBeat = 60f / bpm;
         nextBeatTime = startDelay;
         music.PlayDelayed(startDelay);

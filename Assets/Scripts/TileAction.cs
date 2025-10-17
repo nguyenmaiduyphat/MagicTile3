@@ -23,7 +23,7 @@ public class TileAction : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
         {
             if (tapped) return;
-
+            FindAnyObjectByType<SpawnAction>().tap.Play();
             float distance = Mathf.Abs(transform.position.y - tapY);
             string accuracy = "Miss";
 
@@ -57,7 +57,7 @@ public class TileAction : MonoBehaviour
         if(collision.gameObject.tag == "border")
         {
             Debug.Log("Lose");
-            FindAnyObjectByType<ClickingEvent>().OpenMenu();
+          //  FindAnyObjectByType<ClickingEvent>().OpenMenu();
         }
     }
 }

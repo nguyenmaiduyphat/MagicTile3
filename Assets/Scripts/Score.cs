@@ -44,10 +44,10 @@ public class Score : MonoBehaviour
         }
 
         scoreText.text = score.ToString("0");
-        comboText.text = combo + "x";
+        comboText.text = combo.ToString() + "x";
         // Make sure text is visible
-        accuracyText.gameObject.GetComponent<RectTransform>().localScale = new Vector3(0.1f, 0.1f, 1);
-        comboText.gameObject.GetComponent<RectTransform>().localScale = new Vector3(0.1f, 0.1f, 1);
+        accuracyText.GetComponent<RectTransform>().localScale = new Vector3(0.1f, 0.1f, 1);
+        comboText.GetComponent<RectTransform>().localScale = new Vector3(0.1f, 0.1f, 1);
 
         // Restart hide timer
         if (hideCoroutine != null)
@@ -58,7 +58,7 @@ public class Score : MonoBehaviour
     private IEnumerator HideTextAfterDelay()
     {
         yield return new WaitForSeconds(2f);
-        accuracyText.gameObject.GetComponent<RectTransform>().localScale = Vector3.zero;
-        comboText.gameObject.GetComponent<RectTransform>().localScale = Vector3.zero;
+        accuracyText.GetComponent<RectTransform>().localScale = Vector3.zero;
+        comboText.GetComponent<RectTransform>().localScale = Vector3.zero;
     }
 }
