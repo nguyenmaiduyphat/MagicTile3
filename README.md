@@ -1,108 +1,81 @@
 Magic Tiles 3 (Simplified) – Unity 2021.3 LTS
-Overview
+🕹️ Overview
 
-Simplified rhythm game inspired by Magic Tiles 3.
-Tiles fall down rhythmic lanes, and the player taps on the beat to score.
-Built with Unity 2021.3 LTS, targeting mobile (Android/iOS).
+This project is a simplified rhythm game inspired by Magic Tiles 3.
+Tiles fall down rhythmic lanes, and the player taps them in time with the background music to score points.
+Developed using Unity 2021.3 LTS, targeting mobile platforms (Android/iOS).
 
-How to Run
+🚀 How to Run
 
 Open the project in Unity 2021.3.x LTS.
 
-Open the scene Game.unity.
+Open the Game.unity scene.
 
-Assign references in the Inspector:
+Assign references in the Inspector if missing:
 
 SpawnAction.music → background music AudioSource
 
 SpawnAction.tap → tap sound AudioSource
 
-Score → TextMeshProUGUI references (scoreText, comboText, accuracyText)
+Score → scoreText, comboText, accuracyText (TextMeshProUGUI)
 
-ClickingEvent.menu → pause/game-over menu GameObject
+ClickingEvent.menu → pause or game over menu GameObject
 
-Press Play in the Editor (use mouse), or build to Android/iOS for touch testing.
+Press Play in the Editor (use mouse clicks), or build to Android/iOS for touch control.
 
-Controls
+Tap on the tiles in rhythm with the song. Missing or tapping off-beat ends the game.
 
-Tap or click anywhere on the screen when a tile reaches the hit line.
+⚙️ Design Choices
+🎵 Music Synchronization
 
-Game ends on first missed tile or off-beat tap (configurable).
+The game uses AudioSource.time as the main clock for precise rhythm tracking.
 
-Each tap gives accuracy feedback:
-
-🟢 Perfect
-
-🔵 Great
-
-🟡 Good
-
-🔴 Miss
-
-Design Choices
-🎵 Timing
-
-Uses AudioSource.time from the background music as the authoritative clock.
-
-Ensures spawning and tap detection remain perfectly in sync with the song.
-
-🧩 Spawner
-
-SpawnAction.cs spawns tiles 1.5 beats early so they reach the hit line exactly on the beat.
-
-Tile fall speed is calculated dynamically:
+Each tile is spawned early and moves at a dynamically calculated fall speed, so it reaches the hit line exactly when the beat occurs:
 
 fallSpeed = fallDistance / timeUntilBeat;
 
-⏱️ Hit Windows
+🧩 Tile Spawning & Timing
 
-Perfect: within 0.1f units of the tap line.
+SpawnAction.cs spawns tiles 1.5 beats before the target hit time based on BPM.
 
-Great: within 0.25f units.
+Works consistently across devices and frame rates.
 
-Good: within 0.4f units.
+⏱️ Scoring & Accuracy
 
-Miss: beyond 0.4f (ends game).
+Accuracy levels: Perfect, Great, Good, and Miss.
 
-💥 Feedback
+Each tap is judged by vertical distance from the hit line.
 
-Tap sound (tap AudioSource) plays when a tile is hit.
+Score and combo values are displayed briefly (2 seconds) after every hit.
 
-Text feedback (“Perfect”, “Great”, “Good”, “MISS!”) shows for 2 seconds.
+💥 Feedback System
 
-Accuracy text color changes by result.
+Tap sound plays on every successful hit.
 
-Optional particle prefabs can be added for visual effects.
+Colored accuracy text gives immediate feedback.
 
-🔢 Combo & Multiplier
+Easily extendable for particle or animation effects.
 
-Combo increases on every successful hit.
+🔢 Combo System
 
-Combo resets to zero on “Miss.”
+Consecutive hits increase combo count.
 
-Future extension: multiplier increments every 10 hits.
+Miss resets combo to 0.
 
-🌀 Object Pooling (Future-Ready)
+Can be extended with score multipliers for longer streaks.
 
-Current design uses Instantiate, but easily upgradable to ObjectPool for optimization.
+🌀 Performance & Structure
 
-Spawn system and tile lifecycle are already modular and compatible with pooling.
+Clean, modular scripts separated by purpose (spawning, scoring, UI, music).
 
-Files of Interest
-Script	Description
-ClickingEvent.cs	Manages UI, menu, restart, and scene transitions.
-DestroyerCheckScript.cs	Removes off-screen tiles.
-MusicManager.cs	Controls background music timing and playback.
-PositionScript.cs	Draws grid positions for spawn and tap lines (editor only).
-Score.cs	Handles score, combo, and accuracy feedback (text shown for 2s).
-SpawnAction.cs	Spawns tiles rhythmically in sync with music BPM and calculates fall speed.
-TileAction.cs	Manages tile falling motion, tap detection, and accuracy scoring.
-Attribution
+Designed for easy extension to object pooling or beatmap data systems.
 
-Music & SFX: Royalty-free from Pixabay Music
+📜 Attribution
+
+Music & Sound Effects: Royalty-free assets from Pixabay Music
 
 Font: TextMeshPro (Unity built-in)
 
-Particles: Unity’s default particle system
+Particles & Visuals: Unity default particle system (customized)
 
-Sprites/Prefabs: Custom-built or Unity primitives
+Code: All gameplay and logic scripts authored by Nguyễn Mai Duy Phát
